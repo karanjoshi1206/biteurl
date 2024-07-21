@@ -17,8 +17,6 @@ const Header = () => {
     });
   };
 
-  console.log("USER IS ", user);
-
   const handleLogout = async (e: React.MouseEvent) => {
     e.preventDefault();
     fetchData();
@@ -47,7 +45,11 @@ const Header = () => {
               <DropdownMenuLabel>{user?.email}</DropdownMenuLabel>
               <DropdownMenuSeparator />
 
-              <DropdownMenuItem>
+              <DropdownMenuItem
+                onClick={() => {
+                  navigate({ to: "/dashboard" });
+                }}
+              >
                 <LinkIcon className="mr-2 h-4 w-4" /> <span> My Links</span>
               </DropdownMenuItem>
               <DropdownMenuItem className="text-red-400">

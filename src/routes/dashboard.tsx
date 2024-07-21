@@ -1,8 +1,7 @@
 import { createFileRoute, redirect } from "@tanstack/react-router";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../components/ui/card";
 import { Input } from "../components/ui/input";
-import { Button } from "../components/ui/button";
-import { PlusCircle, PlusIcon } from "lucide-react";
+
 import { useContext, useEffect, useState } from "react";
 import { useApi } from "../hooks/use-api";
 import { getAnalytics } from "../api/analytics";

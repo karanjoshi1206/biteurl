@@ -81,9 +81,11 @@ const Login = () => {
     }
   }, [response, error]);
 
+  console.log("form error is", formErrors.join(" and "),formErrors.length);
+
   return (
     <form onSubmit={handleLogin} className="my-2">
-      {formErrors.length && <ErrorText>{formErrors.join(" and ")}</ErrorText>}
+      {formErrors.length > 0 && <ErrorText>{formErrors?.join(" and ")}</ErrorText>}
       <Input onChange={handleFormValue} name="email" className="my-2 outline-none" type="email" placeholder="Email" />
       <Input onChange={handleFormValue} name="password" className="my-2 outline-none" type="password" placeholder="Password" />
       <Button disabled={loading} type="submit">

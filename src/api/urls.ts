@@ -9,10 +9,15 @@ export const getUrls = async ({ user_id }: { user_id: string }) => {
   }
   return data;
 };
-
+export const getUrlData = async ({ short_url }: { short_url: string }) => {
+  const { data, error } = await supabase.from("urls").select("*").or(`short_url.eq.${short_url},custom_url.eq.${short_url}`);
+  if (error) {
+    throw new Error(error.message);
+  }
+  return data;
+};
 export const deleteUrl = async ({ url_id }: { url_id: string }) => {
   const { data, error } = await supabase.from("urls").delete().eq("id", url_id);
-  console.log("Data is ", data);
   if (error) {
     throw new Error(error.message);
   }
@@ -22,7 +27,8 @@ export const deleteUrl = async ({ url_id }: { url_id: string }) => {
   };
 };
 
-export const createUrl = async ({ original_url, qr, custom_url, title, user_id }: TUrlModel) => {
+export const createUrl = async (urldata: TUrlModel) => {
+  const { original_url, qr, custom_url, title, user_id } = urldata;
   const short_url = `${getUniqueId().replace(/-/g, "").slice(0, 5)}`;
   const fileName = `qr-${short_url}`;
 
@@ -47,6 +53,13 @@ export const createUrl = async ({ original_url, qr, custom_url, title, user_id }
       }
     ])
     .select();
+  if (error) {
+    throw new Error(error.message);
+  }
+  return data;
+};
+export const getUrlDataFromId = async ({ id }: { id: string }) => {
+  const { data, error } = await supabase.from("urls").select("*").eq("id", id);
   if (error) {
     throw new Error(error.message);
   }

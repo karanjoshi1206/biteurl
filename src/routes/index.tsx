@@ -30,6 +30,8 @@ const LandingPage = () => {
       .validate({ longUrl })
       .then(() => {
         if (isAuthenticated) {
+          //  console.log("IS AUTH ",isAuthenticated)
+          //  return 
           navigate({
             to: `/dashboard?createNew=${encodeURI(longUrl)}`
           });

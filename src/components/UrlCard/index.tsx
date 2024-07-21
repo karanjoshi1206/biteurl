@@ -5,6 +5,8 @@ import { deleteUrl } from "../../api/urls";
 import { useEffect } from "react";
 import { ToastAction } from "@radix-ui/react-toast";
 import Spinner from "../Spinner";
+import { baseUrl } from "../../CONSTANTS";
+import { Link } from "@tanstack/react-router";
 
 export type TUrlModel = {
   original_url: string;
@@ -100,7 +102,9 @@ const UrlCard = ({ url, fetchUrls }: { url: TUrl; fetchUrls: () => {} }) => {
       <div className="w-full">
         <div className="pb-2">
           <div className="flex justify-between items-center mb-4">
-            <h4 className="font-bold text-xl ">{url.title}</h4>
+            <Link className="font-bold text-xl" to={`/link/${url.id}`} >
+              {url.title}
+            </Link>
             <div className="flex gap-2">
               <Copy height={20} onClick={handleUrlCopy} className="cursor-pointer" />
               <Download height={20} onClick={handleQrDownload} className="cursor-pointer" />
@@ -109,7 +113,7 @@ const UrlCard = ({ url, fetchUrls }: { url: TUrl; fetchUrls: () => {} }) => {
             </div>
           </div>
           <a className="text-blue-600 block text-sm mb-2" href={url.short_url} target="_blank">
-            {url.short_url}
+            {`${baseUrl}${url.short_url}`}
           </a>
           <a className="text-gray-400 block text-sm" href={url.original_url} target="_blank">
             {url.original_url}
